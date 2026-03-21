@@ -1,1 +1,21 @@
-.pio
+# CMake
+cmake-build-debug/
+cmake-build-release/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.DS_Store
+
+# Arduino build outputs
+*.hex
+*.elf
+build/
