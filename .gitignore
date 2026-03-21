@@ -7,15 +7,37 @@ CMakeScripts/
 Makefile
 cmake_install.cmake
 
+# 编译产物和构建文件
+.pio/
+build/
+cmake-build-*/
+*.elf
+*.hex
+*.o
+*.d
+*.a
+*.so
+*.dll
+*.exe
+
 # IDE
 .idea/
+.vscode/
 *.iml
 *.iws
 *.ipr
-.vscode/
 .DS_Store
+Thumbs.db
 
-# Arduino build outputs
-*.hex
-*.elf
-build/
+# Arduino内置库（已从Git中移除）
+lib/AccelStepper-1.64.0/
+lib/Arduino_BuiltIn/
+lib/Ethernet/
+lib/Firmata/
+lib/Keyboard/
+lib/LiquidCrystal/
+lib/Mouse/
+lib/SD
+lib/Servo/
+lib/Stepper/
+lib/TFT/
