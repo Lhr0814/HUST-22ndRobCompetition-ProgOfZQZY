@@ -5,7 +5,7 @@
 
 此分支`R1`为**机器人R1**的电控代码，主要实现了PS2手柄控制、底盘控制、机械臂控制以及气缸发射控制的相关功能。
 
-项目基于`IntelliJ CLion IDE`进行开发，配合`PlatformIO`插件进行嵌入式开发，面向`Arduino Mega 2560`开发板，烧录入开发板的代码位于`\src\main.cpp`。
+项目基于`IntelliJ CLion IDE`进行开发，配合`PlatformIO`插件进行嵌入式开发，面向`Arduino Mega 2560`开发板，烧录入开发板的代码位于[`.\src\main.cpp`](https://github.com/Lhr0814/HUST-22ndRobCompetition-ProgOfZQZY/blob/R1/src/main.cpp)。
 
 **此分支**`R1`**为机器人R1的电控代码**。关于**机器人R2**的电控代码请移步至分支`R2`。
 
@@ -17,7 +17,7 @@
 - `PS2X_lib`: 用于控制PS2手柄（外部）| [Github界面](https://github.com/madsci1016/Arduino-PS2X)
 - `Emakefun_MotorDriverBoard`: 用于扩展板`MotorDriverBoard`的驱动代码库（外部）| [Github界面](https://github.com/emakefun/MotorDriverBoard)
 
-本项目使用的外部库位于文件夹`\lib`下。
+本项目使用的外部库位于文件夹[`.\lib`](https://github.com/Lhr0814/HUST-22ndRobCompetition-ProgOfZQZY/tree/R1/lib)下。
 
 ## 功能实现介绍
 ### 扩展版
@@ -69,4 +69,4 @@ PS2X ps2x; // PS2对象定义
 
 感谢“追求卓越”战队的所有队友，感谢机械科学与工程学院为我们打造的平台，让我们的机械设计和控制水平在大学初期就得到较大的提升。
 
-由于本人非计算机/嵌入式专业，水平有限，若有遗漏，敬请斧正，欢迎在Github提交Issue进行交流讨论，在此一并感谢！
+由于本人非计算机/嵌入式专业开发人员，水平有限，若有遗漏，敬请斧正，欢迎在Github提交Issue进行交流讨论，在此一并感谢！
