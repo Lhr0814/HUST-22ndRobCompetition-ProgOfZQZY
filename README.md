@@ -24,7 +24,7 @@
 
 本此机器人开发使用`Arduino Mega 2560`开发板配合`Emakefun_MotorDriverBoard`扩展板开发。其中扩展版承担了四路直流电机的驱动、PS2X模块的安装以及舵机的驱动。
 
-以下代码段为扩展版的相关对象声明。
+以下代码段为扩展板的相关对象声明。
 ```c++
 Emakefun_MotorDriver mMotorDriver = Emakefun_MotorDriver(0x60); // 电机对象定义
 Emakefun_DCMotor *RF = mMotorDriver.getMotor(M1);
