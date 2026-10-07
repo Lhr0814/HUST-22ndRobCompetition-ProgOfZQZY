@@ -4,22 +4,24 @@
 
 此分支`R2`为**机器人R2**的电控代码，主要实现了PS2手柄控制、底盘控制、机械臂控制以及摩擦轮发射控制的相关功能。
 
-项目基于`IntelliJ CLion IDE`进行开发，配合`PlatformIO`插件进行嵌入式开发，面向`Arduino Mega 2560`开发板，烧录入开发板的代码位于[`.\src\main.cpp`](https://github.com/Lhr0814/HUST-22ndRobCompetition-ProgOfZQZY/blob/R2/src/main.cpp)。
+项目基于`IntelliJ CLion IDE`进行开发（现代IDE的内联跳转等功能更利于库的理解与代码编写），配合`PlatformIO`插件进行嵌入式开发，使用`Arduino Mega 2560`开发板，烧录入开发板的代码位于[`.\src\main.cpp`](https://github.com/Lhr0814/HUST-22ndRobCompetition-ProgOfZQZY/blob/R2/src/main.cpp)。
 
 **此分支**`R2`**为机器人R2的电控代码**。关于**机器人R1**的电控代码请移步至分支`R1`。
+
+关于机械结构的拆解，以及更详细的介绍请移步至作者本人在[robuddy.wiki](https://robuddy.wiki/wiki/%E6%A0%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%8C%E5%B1%8A/%E8%BF%BD%E6%B1%82%E5%8D%93%E8%B6%8A)上撰写的笔记。
 
 ![R2图片](doc/pictures/R2_Picture.png)
 
 # 使用说明
 本项目所使用的库有：
-- `Arduino_Builtin`: 用于控制Arduino板的基础库（内部库，无需额外安装）
+- `Arduino_Builtin`: 用于控制Arduino板的基础库（内部库，无需额外安装，若使用原生`Arduino IDE`开发可以完全忽略）
 - `PS2X_lib`: 用于控制PS2手柄（外部）| [Github界面](https://github.com/madsci1016/Arduino-PS2X)
 - `Emakefun_MotorDriverBoard`: 用于扩展板`MotorDriverBoard`的驱动代码库（外部）| [Github界面](https://github.com/emakefun/MotorDriverBoard)
 
 本项目使用的外部库位于文件夹[`.\lib`](https://github.com/Lhr0814/HUST-22ndRobCompetition-ProgOfZQZY/tree/R2/lib)下。
 
 # 功能实现介绍
-## 扩展版
+## 扩展板
 
 本此机器人开发使用`Arduino Mega 2560`开发板配合`Emakefun_MotorDriverBoard`扩展板开发。其中扩展版承担了四路直流电机的驱动、PS2X模块的安装以及舵机的驱动。
 
@@ -66,9 +68,13 @@ PS2X ps2x; // PS2对象定义
 
 关于丝杆控制，因为对精度要求不高所以只使用了直流电机，并使用非阻塞定时进行计时。若后续需要更精确的控制，可以考虑换用编码直流电机。
 
+为简化控制，在代码中将两部分控制耦合为了一连招。
+
 # 写在最后
 
 本项目为作者打开嵌入式开发大门的第一个开发项目，为校机器人大赛所用，上传在这里，也是为自己的项目开发历程留下一点足迹。
+
+此项目也可以为未来各位参加校机器人大赛的学弟学妹们提供一些经验和参考。若有疑问和想法，也欢迎联系作者本人<del>进行拷打</del>，也希望参加比赛的各位不要囿于前人经验的桎梏，发挥自己天马行空的想象力与创造力，创造出独特的机器人。
 
 感谢“追求卓越”战队的所有队友，感谢机械科学与工程学院为我们打造的平台，让我们的机械设计和控制水平在大学初期就得到较大的提升。
 

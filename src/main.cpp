@@ -1,3 +1,8 @@
+/*
+ *  This is the control file of R2 Robot.
+ *  Developed by Lhr0814@Github
+ */
+
 #include <Arduino.h>
 #include <PS2X_lib.h>
 #include <Emakefun_MotorDriver.h>
@@ -14,19 +19,19 @@
 #define FRICTION1_IN2   40 // 摩擦轮1 IN2 引脚
 #define FRICTION2_IN3   42 // 摩擦轮2 IN3 引脚
 #define FRICTION2_IN4   44 // 摩擦轮2 IN4 引脚
-// #define LF_IN3          48 // 左前轮 IN1 引脚
-// #define LF_IN4          46 // 左前轮 IN2 引脚
-// #define LF_ENB          44 // 左前轮 ENB 引脚
+#define LF_IN3          50 // 左前轮 IN3 引脚
+#define LF_IN4          48 // 左前轮 IN4 引脚
+#define LF_ENB          46 // 左前轮 ENB 引脚
 /* 如若需要更改接线引脚，只需要在此处更改宏定义就足够了! */
 /******************** 以上是引脚定义 ********************/
 
 /******************** 以下是对象声明 ********************/
 PS2X ps2x; // PS2对象定义
 Emakefun_MotorDriver mMotorDriver = Emakefun_MotorDriver(0x60); // 电机对象定义
-  Emakefun_DCMotor *LB = mMotorDriver.getMotor(M1); //1号 左后
-  Emakefun_DCMotor *RB = mMotorDriver.getMotor(M2); //2号 右后
-  Emakefun_DCMotor *LF = mMotorDriver.getMotor(M3); //3号 左前
-  Emakefun_DCMotor *RF = mMotorDriver.getMotor(M4); //4号 右前
+  Emakefun_DCMotor *RF = mMotorDriver.getMotor(M1); //1号 左后
+  // Emakefun_DCMotor *LF = mMotorDriver.getMotor(M2); //2号 右后
+  Emakefun_DCMotor *RB = mMotorDriver.getMotor(M3); //3号 左前
+  Emakefun_DCMotor *LB = mMotorDriver.getMotor(M4); //4号 右前
   Emakefun_Servo *Servo = mMotorDriver.getServo(8); // 8号 舵机
 /******************** 以上是对象声明 ********************/
 
@@ -47,6 +52,10 @@ void initL298N() { //L298N电机初始化
   digitalWrite(FRICTION1_IN2, LOW);
   digitalWrite(FRICTION2_IN3, LOW);  // 固定方向
   digitalWrite(FRICTION2_IN4, LOW);
+
+  pinMode(LF_ENB, OUTPUT);
+  pinMode(LF_IN3, OUTPUT);
+  pinMode(LF_IN4, OUTPUT);
 } // L298N电机引脚初始化
 void initServo() { // 舵机初始化
   Servo->writeServo(0);
@@ -196,10 +205,10 @@ void controlChassisSpeed() { //速度控制
 }
 void calculateChassis(const int x, const int y, const int r) { // 计算麦克纳姆轮运动
   // 麦轮运动学公式
-  lf_speed = -y + x + r;  // 左前轮
-  rf_speed = -y - x - r;  // 右前轮
-  lb_speed = 1*(-y - x + r);  // 左后轮
-  rb_speed = 1*(-y + x - r);  // 右后轮
+  lf_speed = y - x + r;  // 左前轮
+  rf_speed = y + x - r;  // 右前轮
+  lb_speed = y + x + r;  // 左后轮
+  rb_speed = y - x - r;  // 右后轮
   // 限制最大速度
   int maxChassisCalculated = max(max(abs(lf_speed), abs(rf_speed)), max(abs(lb_speed), abs(rb_speed)));
   if(maxChassisCalculated > maxChassisSpeed) {
@@ -224,7 +233,10 @@ void setChassisMotor(Emakefun_DCMotor *DCMotor, int speed) { // 控制单个电�
 }
 // 设置麦轮电机速度和方向
 void setChassisMotorSpeeds() {
-  setChassisMotor(LF, lf_speed);
+  //setChassisMotor(LF, lf_speed);
+  if (lf_speed > 0) DCMotorRun(LF_IN3, LF_IN4, LF_ENB, FORWARD, abs(lf_speed));
+  else if (lf_speed < 0) DCMotorRun(LF_IN3, LF_IN4, LF_ENB, BACKWARD, abs(lf_speed));
+  else DCMotorRun(LF_IN3, LF_IN4, LF_ENB, BRAKE);
   setChassisMotor(RF, -rf_speed);
   setChassisMotor(LB, lb_speed);
   setChassisMotor(RB, -rb_speed);
@@ -255,7 +267,8 @@ void ChassisControl() {
 void stopChassisMotors() {
     RB->run(BRAKE);
     RF->run(BRAKE);
-    LF->run(BRAKE);
+    //LF->run(BRAKE);
+    DCMotorRun(LF_IN3, LF_IN4, LF_ENB, BRAKE);
     LB->run(BRAKE);
 }
 // 电机紧急停止
