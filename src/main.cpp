@@ -1,6 +1,8 @@
 /*
  *  This is the control file of R1 Robot.
+ *  Developed by Lhr0814@Github
  */
+
 #include <Arduino.h>
 #include <PS2X_lib.h>
 #include <Emakefun_MotorDriver.h>
